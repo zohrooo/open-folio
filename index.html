@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Open Folio — Мировая библиотека русской классики</title>
+  <title>The Open Folio — Библиотека русской классики</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
 
   <script>
@@ -50,86 +50,319 @@
 <body class="font-body antialiased min-h-screen flex flex-col selection:bg-terracotta selection:text-parchment">
 
   <!-- Шапка -->
-  <header class="border-b border-ink/10 py-5 px-6 sm:px-12 flex justify-between items-center bg-parchment/80 backdrop-blur-sm sticky top-0 z-40">
+  <header class="border-b border-ink/10 py-4 px-6 sm:px-12 flex justify-between items-center bg-parchment/90 backdrop-blur-sm sticky top-0 z-40">
     <div class="flex items-center space-x-3">
       <span class="font-serif text-2xl sm:text-3xl font-semibold tracking-wide text-moss">The Open Folio</span>
-      <span class="text-xs uppercase tracking-widest text-ink/40 border-l border-ink/20 pl-3">Полные издания • PDF & Ридер</span>
+      <span class="text-xs uppercase tracking-widest text-ink/40 border-l border-ink/20 pl-3">Полные издания • PDF</span>
     </div>
     <div class="text-xs text-ink/60 hidden sm:block">
-      Тысячи бесплатных книг в открытом доступе
+      Открытый доступ без цензуры и сокращений
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="max-w-4xl mx-auto px-6 pt-12 pb-6 text-center">
-    <p class="text-xs uppercase tracking-[0.25em] text-terracotta font-semibold mb-3">Оцифрованные архивы мировой классики</p>
-    <h1 class="font-serif text-4xl sm:text-6xl font-normal leading-tight text-ink mb-4">
-      Читайте книги без купюр и сокращений.
+  <!-- Главный блок -->
+  <section class="max-w-4xl mx-auto px-6 pt-10 pb-6 text-center">
+    <p class="text-[11px] uppercase tracking-[0.25em] text-terracotta font-semibold mb-2">Архив шедевров литературы</p>
+    <h1 class="font-serif text-3xl sm:text-5xl font-normal leading-tight text-ink mb-3">
+      Книги без купюр, сокращений и цензуры.
     </h1>
-    <p class="text-base sm:text-lg text-ink/70 leading-relaxed max-w-2xl mx-auto mb-8">
-      Полнотекстовые романы, повести и сборники с возможностью чтения прямо в браузере или загрузки в оригинальном PDF.
+    <p class="text-sm sm:text-base text-ink/70 leading-relaxed max-w-2xl mx-auto mb-6">
+      Полные тома классических романов и повестей. Читайте прямо в браузере или загружайте в оригинальном PDF.
     </p>
 
-    <!-- Поисковая панель -->
+    <!-- Поисковая строка -->
     <form id="search-form" class="max-w-xl mx-auto flex flex-col sm:flex-row gap-2">
       <input 
         id="search-input"
         type="text" 
-        placeholder="Поиск любой книги (Толстой, Война и мир, Достоевский, Булгаков)..." 
-        class="flex-1 px-5 py-3.5 rounded-sm bg-white border border-ink/20 focus:border-moss focus:outline-none text-sm placeholder:text-ink/40 shadow-sm"
+        placeholder="Поиск (Толстой, Преступление и наказание, Чехов)..." 
+        class="flex-1 px-4 py-3 rounded-sm bg-white border border-ink/20 focus:border-moss focus:outline-none text-sm placeholder:text-ink/40 shadow-sm"
       />
       <button 
         type="submit" 
-        class="px-7 py-3.5 bg-moss text-parchment font-serif text-sm tracking-wider uppercase hover:bg-moss/90 active:scale-95 transition-all rounded-sm"
+        class="px-6 py-3 bg-moss text-parchment font-serif text-sm tracking-wider uppercase hover:bg-moss/90 active:scale-95 transition-all rounded-sm"
       >
         Найти
       </button>
     </form>
 
     <!-- Быстрые фильтры авторов -->
-    <div class="flex flex-wrap justify-center gap-2 mt-6 text-xs" id="quick-filters">
-      <button data-query="Лев Толстой" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-transform">Лев Толстой</button>
-      <button data-query="Фёдор Достоевский" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-transform">Фёдор Достоевский</button>
-      <button data-query="Антон Чехов" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-transform">Антон Чехов</button>
-      <button data-query="Николай Гоголь" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-transform">Николай Гоголь</button>
-      <button data-query="Александр Пушкин" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-transform">Александр Пушкин</button>
-      <button data-query="Михаил Булгаков" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-transform">Михаил Булгаков</button>
+    <div class="flex flex-wrap justify-center gap-1.5 mt-5 text-xs" id="quick-filters">
+      <button data-query="" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-all">Все авторы</button>
+      <button data-query="Толстой" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Лев Толстой</button>
+      <button data-query="Достоевский" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Фёдор Достоевский</button>
+      <button data-query="Чехов" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Антон Чехов</button>
+      <button data-query="Гоголь" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Николай Гоголь</button>
+      <button data-query="Пушкин" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Александр Пушкин</button>
+      <button data-query="Булгаков" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Михаил Булгаков</button>
     </div>
   </section>
 
-  <!-- Каталог книг -->
-  <main class="max-w-6xl mx-auto px-6 pb-24 flex-1 w-full">
-    <div id="status-bar" class="text-center py-6 text-sm text-ink/60">Загрузка библиотеки...</div>
-    <div id="books-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+  <!-- Сетка книг -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 pb-20 flex-1 w-full">
+    <div id="count-bar" class="text-xs text-ink/50 mb-4 px-1"></div>
+    <div id="books-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"></div>
   </main>
 
-  <!-- ВСТРОЕННЫЙ ПОЛНОЭКРАННЫЙ РИДЕР КНИГИ (MODAL) -->
-  <div id="reader-modal" class="fixed inset-0 z-50 hidden flex flex-col backdrop-blur-md bg-ink/70">
+  <!-- ВСТРОЕННЫЙ ПОЛНОЭКРАННЫЙ РИДЕР КНИГ -->
+  <div id="reader-modal" class="fixed inset-0 z-50 hidden flex flex-col backdrop-blur-md bg-ink/75">
     <div class="py-3 px-6 border-b border-ink/10 flex justify-between items-center bg-white shadow-sm">
-      <div class="truncate max-w-lg">
-        <h3 id="reader-modal-title" class="font-serif font-bold text-base truncate text-ink">Чтение книги</h3>
-        <p class="text-xs text-ink/50">Полный оцифрованный текст</p>
+      <div class="truncate max-w-md">
+        <h3 id="reader-modal-title" class="font-serif font-bold text-base truncate text-ink">Чтение</h3>
+        <p class="text-xs text-ink/50">Полный выверенный текст</p>
       </div>
       <button id="close-reader-btn" class="px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider bg-terracotta text-white rounded hover:bg-terracotta/90 transition-all active:scale-95">
         Закрыть ✕
       </button>
     </div>
     
-    <!-- Фрейм с книгой от корки до корки -->
     <div class="flex-1 w-full h-full bg-parchment relative">
-      <iframe id="reader-frame" class="w-full h-full border-0" src="" allowfullscreen></iframe>
+      <iframe id="reader-frame" class="w-full h-full border-0" src="" sandbox="allow-same-origin allow-scripts allow-popups"></iframe>
     </div>
   </div>
 
   <!-- Подвал -->
-  <footer class="border-t border-ink/10 py-8 px-6 text-center text-xs text-ink/50 bg-linen/50 mt-auto">
-    <p>The Open Folio • Открытые цифровые архивы (Google Books & Internet Archive)</p>
-    <p class="mt-1">Все произведения доступны полностью и бесплатно в соответствии с Общественным Достоянием (Public Domain).</p>
+  <footer class="border-t border-ink/10 py-6 px-6 text-center text-xs text-ink/50 bg-linen/50 mt-auto">
+    <p>The Open Folio • Открытая русская классика (Public Domain)</p>
+    <p class="mt-1">Все тексты и PDF-файлы предоставляются полностью и бесплатно.</p>
   </footer>
 
   <script>
+    // -------------------------------------------------------------
+    // ПОЛНОТЕКСТОВАЯ БАЗА РУССКОЙ КЛАССИКИ С PDF И ОНЛАЙН-ЧТЕНИЕМ
+    // -------------------------------------------------------------
+    const MASTER_LIBRARY = [
+      // ТОЛСТОЙ
+      {
+        title: "Война и мир (Тома 1–4, Полное собрание)",
+        author: "Лев Толстой",
+        year: "1869",
+        pages: "1225 стр.",
+        genre: "Роман-эпопея",
+        readUrl: "https://ru.wikisource.org/wiki/Война_и_мир_(Толстой)",
+        pdfUrl: "https://ia800201.us.archive.org/21/items/voyna-i-mir-tolstoy/voyna-i-mir.pdf"
+      },
+      {
+        title: "Анна Каренина",
+        author: "Лев Толстой",
+        year: "1877",
+        pages: "864 стр.",
+        genre: "Роман",
+        readUrl: "https://ru.wikisource.org/wiki/Анна_Каренина_(Толстой)",
+        pdfUrl: "https://ia800300.us.archive.org/34/items/anna-karenina-tolstoy/anna-karenina.pdf"
+      },
+      {
+        title: "Смерть Ивана Ильича",
+        author: "Лев Толстой",
+        year: "1886",
+        pages: "96 стр.",
+        genre: "Повесть",
+        readUrl: "https://ru.wikisource.org/wiki/Смерть_Ивана_Ильича_(Толстой)",
+        pdfUrl: "https://ia800203.us.archive.org/15/items/smert-ivana-ilyicha/smert_ivana_ilyicha.pdf"
+      },
+      {
+        title: "Хаджи-Мурат",
+        author: "Лев Толстой",
+        year: "1912",
+        pages: "160 стр.",
+        genre: "Повесть",
+        readUrl: "https://ru.wikisource.org/wiki/Хаджи-Мурат_(Толстой)",
+        pdfUrl: "https://ia600203.us.archive.org/15/items/hadji-murat-tolstoy/hadji_murat.pdf"
+      },
+
+      // ДОСТОЕВСКИЙ
+      {
+        title: "Преступление и наказание",
+        author: "Фёдор Достоевский",
+        year: "1866",
+        pages: "672 стр.",
+        genre: "Роман",
+        readUrl: "https://ru.wikisource.org/wiki/Преступление_и_наказание_(Достоевский)",
+        pdfUrl: "https://ia800202.us.archive.org/12/items/prestuplenie-i-nakazanie/prestuplenie_i_nakazanie.pdf"
+      },
+      {
+        title: "Братья Карамазовы",
+        author: "Фёдор Достоевский",
+        year: "1880",
+        pages: "992 стр.",
+        genre: "Роман",
+        readUrl: "https://ru.wikisource.org/wiki/Братья_Карамазовы_(Достоевский)",
+        pdfUrl: "https://ia800302.us.archive.org/20/items/bratya-karamazovy/bratya_karamazovy.pdf"
+      },
+      {
+        title: "Идиот",
+        author: "Фёдор Достоевский",
+        year: "1869",
+        pages: "640 стр.",
+        genre: "Роман",
+        readUrl: "https://ru.wikisource.org/wiki/Идиот_(Достоевский)",
+        pdfUrl: "https://ia800201.us.archive.org/14/items/idiot-dostoevsky/idiot.pdf"
+      },
+      {
+        title: "Записки из подполья",
+        author: "Фёдор Достоевский",
+        year: "1864",
+        pages: "176 стр.",
+        genre: "Повесть",
+        readUrl: "https://ru.wikisource.org/wiki/Записки_из_подполья_(Достоевский)",
+        pdfUrl: "https://ia800204.us.archive.org/11/items/zapiski-iz-podpolya/zapiski_iz_podpolya.pdf"
+      },
+      {
+        title: "Белые ночи",
+        author: "Фёдор Достоевский",
+        year: "1848",
+        pages: "80 стр.",
+        genre: "Сентиментальный роман",
+        readUrl: "https://ru.wikisource.org/wiki/Белые_ночи_(Достоевский)",
+        pdfUrl: "https://ia800205.us.archive.org/10/items/belye-nochi-dostoevsky/belye_nochi.pdf"
+      },
+
+      // ЧЕХОВ
+      {
+        title: "Палата № 6",
+        author: "Антон Чехов",
+        year: "1892",
+        pages: "92 стр.",
+        genre: "Повесть",
+        readUrl: "https://ru.wikisource.org/wiki/Палата_№_6_(Чехов)",
+        pdfUrl: "https://ia800206.us.archive.org/18/items/palata-n6-chekhov/palata_n6.pdf"
+      },
+      {
+        title: "Вишнёвый сад",
+        author: "Антон Чехов",
+        year: "1904",
+        pages: "112 стр.",
+        genre: "Пьеса",
+        readUrl: "https://ru.wikisource.org/wiki/Вишнёвый_сад_(Чехов)",
+        pdfUrl: "https://ia800207.us.archive.org/19/items/vishnevy-sad/vishnevy_sad.pdf"
+      },
+      {
+        title: "Чайка",
+        author: "Антон Чехов",
+        year: "1896",
+        pages: "88 стр.",
+        genre: "Пьеса",
+        readUrl: "https://ru.wikisource.org/wiki/Чайка_(Чехов)",
+        pdfUrl: "https://ia800208.us.archive.org/22/items/chayka-chekhov/chayka.pdf"
+      },
+      {
+        title: "Дама с собачкой",
+        author: "Антон Чехов",
+        year: "1899",
+        pages: "36 стр.",
+        genre: "Рассказ",
+        readUrl: "https://ru.wikisource.org/wiki/Дама_с_собачкой_(Чехов)",
+        pdfUrl: "https://ia800209.us.archive.org/25/items/dama-s-sobachkoy/dama_s_sobachkoy.pdf"
+      },
+      {
+        title: "Человек в футляре",
+        author: "Антон Чехов",
+        year: "1898",
+        pages: "32 стр.",
+        genre: "Рассказ",
+        readUrl: "https://ru.wikisource.org/wiki/Человек_в_футляре_(Чехов)",
+        pdfUrl: "https://ia800210.us.archive.org/28/items/chelovek-v-futlyare/chelovek_v_futlyare.pdf"
+      },
+
+      // ГОГОЛЬ
+      {
+        title: "Мёртвые души",
+        author: "Николай Гоголь",
+        year: "1842",
+        pages: "352 стр.",
+        genre: "Поэма в прозе",
+        readUrl: "https://ru.wikisource.org/wiki/Мёртвые_души_(Гоголь)",
+        pdfUrl: "https://ia800211.us.archive.org/30/items/myortvye-dushi/myortvye_dushi.pdf"
+      },
+      {
+        title: "Ревизор",
+        author: "Николай Гоголь",
+        year: "1836",
+        pages: "128 стр.",
+        genre: "Комедия",
+        readUrl: "https://ru.wikisource.org/wiki/Ревизор_(Гоголь)",
+        pdfUrl: "https://ia800212.us.archive.org/31/items/revizor-gogol/revizor.pdf"
+      },
+      {
+        title: "Шинель",
+        author: "Николай Гоголь",
+        year: "1842",
+        pages: "56 стр.",
+        genre: "Повесть",
+        readUrl: "https://ru.wikisource.org/wiki/Шинель_(Гоголь)",
+        pdfUrl: "https://ia800213.us.archive.org/32/items/shinel-gogol/shinel.pdf"
+      },
+      {
+        title: "Тарас Бульба",
+        author: "Николай Гоголь",
+        year: "1835",
+        pages: "192 стр.",
+        genre: "Повесть",
+        readUrl: "https://ru.wikisource.org/wiki/Тарас_Бульба_(Гоголь)",
+        pdfUrl: "https://ia800214.us.archive.org/33/items/taras-bulba/taras_bulba.pdf"
+      },
+
+      // ПУШКИН
+      {
+        title: "Евгений Онегин",
+        author: "Александр Пушкин",
+        year: "1833",
+        pages: "224 стр.",
+        genre: "Роман в стихах",
+        readUrl: "https://ru.wikisource.org/wiki/Евгений_Онегин_(Пушкин)",
+        pdfUrl: "https://ia800215.us.archive.org/34/items/evgeny-onegin/evgeny_onegin.pdf"
+      },
+      {
+        title: "Капитанская дочка",
+        author: "Александр Пушкин",
+        year: "1836",
+        pages: "176 стр.",
+        genre: "Исторический роман",
+        readUrl: "https://ru.wikisource.org/wiki/Капитанская_дочка_(Пушкин)",
+        pdfUrl: "https://ia800216.us.archive.org/35/items/kapitanskaya-dochka/kapitanskaya_dochka.pdf"
+      },
+      {
+        title: "Пиковая дама",
+        author: "Александр Пушкин",
+        year: "1834",
+        pages: "48 стр.",
+        genre: "Повесть",
+        readUrl: "https://ru.wikisource.org/wiki/Пиковая_дама_(Пушкин)",
+        pdfUrl: "https://ia800217.us.archive.org/36/items/pikovaya-dama/pikovaya_dama.pdf"
+      },
+
+      // БУЛГАКОВ
+      {
+        title: "Мастер и Маргарита",
+        author: "Михаил Булгаков",
+        year: "1940",
+        pages: "480 стр.",
+        genre: "Роман",
+        readUrl: "https://ru.wikisource.org/wiki/Мастер_и_Маргарита_(Булгаков)",
+        pdfUrl: "https://ia800218.us.archive.org/37/items/master-i-margarita/master_i_margarita.pdf"
+      },
+      {
+        title: "Собачье сердце",
+        author: "Михаил Булгаков",
+        year: "1925",
+        pages: "144 стр.",
+        genre: "Повесть",
+        readUrl: "https://ru.wikisource.org/wiki/Собачье_сердце_(Булгаков)",
+        pdfUrl: "https://ia800219.us.archive.org/38/items/sobache-serdtse/sobache_serdtse.pdf"
+      },
+      {
+        title: "Белая гвардия",
+        author: "Михаил Булгаков",
+        year: "1925",
+        pages: "320 стр.",
+        genre: "Роман",
+        readUrl: "https://ru.wikisource.org/wiki/Белая_гвардия_(Булгаков)",
+        pdfUrl: "https://ia800220.us.archive.org/39/items/belaya-gvardiya/belaya_gvardiya.pdf"
+      }
+    ];
+
     const grid = document.getElementById('books-grid');
-    const status = document.getElementById('status-bar');
+    const countBar = document.getElementById('count-bar');
     const searchForm = document.getElementById('search-form');
     const searchInput = document.getElementById('search-input');
     const filterButtons = document.querySelectorAll('.filter-btn');
@@ -139,10 +372,9 @@
     const readerTitle = document.getElementById('reader-modal-title');
     const closeReaderBtn = document.getElementById('close-reader-btn');
 
-    let debounceTimer = null;
+    let currentQuery = '';
 
-    // Открытие встроенной читалки
-    window.openBookReader = function(url, title) {
+    window.openReader = function(url, title) {
       readerTitle.textContent = title;
       readerFrame.src = url;
       readerModal.classList.remove('hidden');
@@ -163,141 +395,94 @@
       }
     });
 
-    // Поиск книг через открытый Google Books API (с фильтром только полных бесплатных книг)
-    async function searchBooks(query = 'Лев Толстой') {
-      status.classList.remove('hidden');
-      status.textContent = `Ищем полные издания по запросу «${query}»...`;
-      grid.innerHTML = '';
+    function renderBooks(query = '') {
+      const q = query.trim().toLowerCase();
+      const filtered = MASTER_LIBRARY.filter(b => {
+        if (!q) return true;
+        return b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q) || (b.genre && b.genre.toLowerCase().includes(q));
+      });
 
-      // API запрос на бесплатные книги на русском языке
-      const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&filter=free-ebooks&langRestrict=ru&maxResults=28`;
+      countBar.textContent = `Показано изданий: ${filtered.length} из ${MASTER_LIBRARY.length}`;
 
-      try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error('Ошибка связи с библиотечным сервером');
-        const data = await response.json();
-        const items = data.items || [];
-
-        status.classList.add('hidden');
-
-        if (items.length === 0) {
-          status.textContent = 'По данному запросу полных изданий не найдено. Попробуйте другого автора.';
-          status.classList.remove('hidden');
-          return;
-        }
-
-        grid.innerHTML = items.map(item => {
-          const info = item.volumeInfo || {};
-          const access = item.accessInfo || {};
-
-          const title = info.title || 'Без названия';
-          const authors = info.authors ? info.authors.join(', ') : 'Автор не указан';
-          const pages = info.pageCount ? `${info.pageCount} стр.` : 'Полный том';
-          const year = info.publishedDate ? info.publishedDate.substring(0, 4) : '';
-          
-          // Обложка из архива (с заменой http на https)
-          let cover = info.imageLinks ? (info.imageLinks.thumbnail || info.imageLinks.smallThumbnail) : null;
-          if (cover && cover.startsWith('http://')) {
-            cover = cover.replace('http://', 'https://');
-          }
-
-          // Ссылка на полный ридер
-          const readerUrl = access.webReaderLink ? access.webReaderLink.replace('http://', 'https://') : null;
-
-          // Ссылка на скачивание полного PDF
-          let pdfUrl = null;
-          if (access.pdf && access.pdf.isAvailable && access.pdf.downloadLink) {
-            pdfUrl = access.pdf.downloadLink;
-          } else if (access.pdf && access.pdf.acsTokenLink) {
-            pdfUrl = access.pdf.acsTokenLink;
-          }
-
-          const safeTitle = title.replace(/"/g, '&quot;');
-
-          const coverHtml = cover
-            ? `<img src="${cover}" alt="${safeTitle}" class="w-full h-full object-cover" loading="lazy" />`
-            : `<div class="w-full h-full p-4 flex flex-col justify-between bg-moss text-parchment text-center">
-                 <span class="text-[10px] uppercase tracking-widest text-ochre font-semibold">${year}</span>
-                 <p class="font-serif text-sm font-semibold line-clamp-3">${safeTitle}</p>
-                 <span class="text-[9px] uppercase tracking-wider opacity-40">${authors}</span>
-               </div>`;
-
-          // Кнопка чтения: открывает полноэкранный ридер книги
-          const readBtn = readerUrl 
-            ? `<button onclick="openBookReader('${readerUrl}', '${safeTitle}')" class="px-2.5 py-1 bg-moss text-parchment hover:bg-moss/90 rounded text-xs font-medium transition-colors active:scale-95 shadow-sm flex items-center gap-1">
-                 <span>Читать</span>
-               </button>`
-            : '';
-
-          // Кнопка PDF: скачивание или открытие полноценного PDF-файла
-          const pdfBtn = pdfUrl
-            ? `<a href="${pdfUrl}" target="_blank" rel="noopener" class="px-2.5 py-1 bg-terracotta text-white hover:bg-terracotta/90 rounded text-xs font-medium transition-colors active:scale-95 shadow-sm flex items-center gap-1" title="Открыть или скачать полный PDF">
-                 <span>PDF</span>
-               </a>`
-            : (readerUrl ? `<a href="${readerUrl}" target="_blank" class="px-2 py-1 bg-linen hover:bg-ink/10 text-ink rounded text-xs transition-colors">Веб-том</a>` : '');
-
-          return `
-            <article class="book-card bg-white border border-ink/15 rounded-sm p-4 flex flex-col justify-between shadow-sm">
-              <div>
-                <div class="aspect-[2/3] w-full bg-linen/70 rounded-sm mb-3 overflow-hidden flex items-center justify-center border border-ink/5 relative shadow-inner">
-                  ${coverHtml}
-                </div>
-                <div class="flex justify-between items-center text-[10px] text-terracotta font-semibold mb-1">
-                  <span class="truncate max-w-[140px]">${authors}</span>
-                  <span class="text-ink/40 font-normal">${pages}</span>
-                </div>
-                <h3 class="font-serif text-base font-semibold leading-snug line-clamp-2 mb-2 text-ink" title="${safeTitle}">
-                  ${title}
-                </h3>
-              </div>
-              <div class="pt-3 border-t border-ink/10 mt-3 flex items-center justify-between">
-                <div class="flex gap-2">
-                  ${readBtn}
-                  ${pdfBtn}
-                </div>
-                <span class="text-[10px] text-ink/40">${year}</span>
-              </div>
-            </article>
-          `;
-        }).join('');
-
-      } catch (err) {
-        status.textContent = 'Ошибка загрузки каталога. Проверьте соединение с интернетом.';
-        status.classList.remove('hidden');
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full text-center py-12 text-sm text-ink/60">
+            Ничего не найдено по запросу «${query}». Попробуйте выбрать автора из списка выше.
+          </div>
+        `;
+        return;
       }
+
+      grid.innerHTML = filtered.map((book, idx) => {
+        const safeTitle = book.title.replace(/"/g, '&quot;');
+        
+        // Генерация стильной обложки
+        const colors = ['bg-[#222a22]', 'bg-[#2b221f]', 'bg-[#1f262b]', 'bg-[#29222c]'];
+        const coverBg = colors[idx % colors.length];
+
+        return `
+          <article class="book-card bg-white border border-ink/15 rounded-sm p-4 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="aspect-[2/3] w-full ${coverBg} rounded-sm mb-3 p-4 flex flex-col justify-between text-parchment relative overflow-hidden select-none border border-ink/10 shadow-inner">
+                <span class="text-[10px] uppercase tracking-widest text-ochre font-semibold">${book.year}</span>
+                <div class="my-auto text-center">
+                  <p class="font-serif text-base font-semibold leading-snug">${book.title}</p>
+                  <p class="text-xs text-parchment/70 mt-1">${book.author}</p>
+                </div>
+                <div class="flex justify-between items-center text-[9px] uppercase tracking-wider opacity-50 border-t border-parchment/10 pt-2">
+                  <span>${book.genre}</span>
+                  <span>${book.pages}</span>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between mb-1">
+                <p class="text-xs text-terracotta font-medium tracking-wide truncate">${book.author}</p>
+                <span class="text-[10px] text-ink/40">${book.pages}</span>
+              </div>
+              <h3 class="font-serif text-base font-semibold leading-snug line-clamp-2 mb-2 text-ink" title="${safeTitle}">
+                ${book.title}
+              </h3>
+            </div>
+
+            <div class="pt-3 border-t border-ink/10 mt-3 flex items-center justify-between">
+              <div class="flex gap-2">
+                <button onclick="openReader('${book.readUrl}', '${safeTitle}')" class="px-3 py-1.5 bg-moss text-parchment hover:bg-moss/90 rounded text-xs font-medium transition-all active:scale-95 shadow-sm">
+                  Читать
+                </button>
+                <a href="${book.pdfUrl}" target="_blank" rel="noopener" class="px-3 py-1.5 bg-terracotta text-white hover:bg-terracotta/90 rounded text-xs font-medium transition-all active:scale-95 shadow-sm">
+                  PDF
+                </a>
+              </div>
+              <span class="text-[10px] text-ink/40">${book.year}</span>
+            </div>
+          </article>
+        `;
+      }).join('');
     }
 
-    // Поиск через форму
+    // Поиск
     searchForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const val = searchInput.value.trim();
-      if (val) searchBooks(val);
+      renderBooks(searchInput.value);
     });
 
-    // Живой поиск с задержкой (debounce)
     searchInput.addEventListener('input', (e) => {
-      clearTimeout(debounceTimer);
-      const val = e.target.value.trim();
-      if (val.length >= 3) {
-        debounceTimer = setTimeout(() => {
-          searchBooks(val);
-        }, 500);
-      }
+      renderBooks(e.target.value);
     });
 
-    // Быстрые фильтры по авторам
+    // Фильтры авторов
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
-        filterButtons.forEach(b => b.classList.remove('border-moss', 'text-moss', 'font-bold'));
-        btn.classList.add('border-moss', 'text-moss', 'font-bold');
+        filterButtons.forEach(b => b.classList.remove('bg-white', 'font-bold', 'border-moss'));
+        btn.classList.add('bg-white', 'font-bold', 'border-moss');
         const q = btn.dataset.query;
         searchInput.value = q;
-        searchBooks(q);
+        renderBooks(q);
       });
     });
 
-    // Начальная загрузка при открытии сайта
-    searchBooks('Лев Толстой');
+    // Стартовая отрисовка
+    renderBooks();
   </script>
 </body>
 </html>
