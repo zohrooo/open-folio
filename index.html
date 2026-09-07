@@ -45,22 +45,18 @@
     .book-card:hover {
       transform: translateY(-4px);
     }
-    /* Темы оформления читалки */
-    .theme-light { background-color: #FAF8F5; color: #1C1B18; }
-    .theme-sepia { background-color: #F4ECD8; color: #382A1B; }
-    .theme-dark  { background-color: #1A1A18; color: #E8E5DD; }
   </style>
 </head>
 <body class="font-body antialiased min-h-screen flex flex-col selection:bg-terracotta selection:text-parchment">
 
-  <!-- Шапка сайта -->
+  <!-- Шапка -->
   <header class="border-b border-ink/10 py-4 px-6 sm:px-12 flex justify-between items-center bg-parchment/90 backdrop-blur-sm sticky top-0 z-40">
     <div class="flex items-center space-x-3">
       <span class="font-serif text-2xl sm:text-3xl font-semibold tracking-wide text-moss">The Open Folio</span>
       <span class="text-xs uppercase tracking-widest text-ink/40 border-l border-ink/20 pl-3">100% на русском</span>
     </div>
     <div class="text-xs text-ink/60 hidden sm:block">
-      Открытый каталог • Русская и мировая литература
+      Открытый каталог шедевров • Без сокращений
     </div>
   </header>
 
@@ -68,10 +64,10 @@
   <section class="max-w-4xl mx-auto px-6 pt-10 pb-6 text-center">
     <p class="text-[11px] uppercase tracking-[0.25em] text-terracotta font-semibold mb-2">Мировые шедевры на русском языке</p>
     <h1 class="font-serif text-3xl sm:text-5xl font-normal leading-tight text-ink mb-3">
-      Книги без купюр, цензуры и сокращений.
+      Книги без купюр, сокращений и цензуры.
     </h1>
     <p class="text-sm sm:text-base text-ink/70 leading-relaxed max-w-2xl mx-auto mb-6">
-      Полные тома классических произведений от корки до корки. Читайте онлайн на чистом русском языке или скачивайте в PDF.
+      Полные тома классических произведений от корки до корки. Читайте прямо в браузере или скачивайте в оригинальном PDF.
     </p>
 
     <!-- Поисковая строка -->
@@ -79,7 +75,7 @@
       <input 
         id="search-input"
         type="text" 
-        placeholder="Поиск по 600,000 книг (Толстой, Шерлок Холмс, Дюма, 1984)..." 
+        placeholder="Поиск (Гёте, Шерлок Холмс, Дюма, Толстой, 1984)..." 
         class="flex-1 px-4 py-3.5 rounded-sm bg-white border border-ink/20 focus:border-moss focus:outline-none text-sm placeholder:text-ink/40 shadow-sm"
       />
       <button 
@@ -92,14 +88,15 @@
 
     <!-- Быстрые фильтры авторов -->
     <div class="flex flex-wrap justify-center gap-1.5 mt-5 text-xs" id="quick-filters">
-      <button data-query="" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-all">Вся подборка</button>
+      <button data-query="" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-all">Вся библиотека</button>
+      <button data-query="Гёте" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Иоганн Гёте</button>
+      <button data-query="Дойль" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Конан Дойль</button>
+      <button data-query="Дюма" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Александр Дюма</button>
+      <button data-query="Жюль Верн" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Жюль Верн</button>
       <button data-query="Толстой" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Лев Толстой</button>
       <button data-query="Достоевский" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Фёдор Достоевский</button>
-      <button data-query="Дюма" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Александр Дюма</button>
-      <button data-query="Конан Дойл" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Конан Дойл</button>
-      <button data-query="Жюль Верн" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Жюль Верн</button>
-      <button data-query="Чехов" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Антон Чехов</button>
       <button data-query="Булгаков" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Михаил Булгаков</button>
+      <button data-query="Чехов" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 hover:border-moss active:scale-95 transition-all">Антон Чехов</button>
     </div>
   </section>
 
@@ -114,241 +111,239 @@
 
   <!-- ВСТРОЕННЫЙ ПОЛНОЭКРАННЫЙ РИДЕР -->
   <div id="reader-modal" class="fixed inset-0 z-50 hidden flex flex-col backdrop-blur-md bg-ink/75">
-    <div class="py-3 px-6 border-b border-ink/10 flex justify-between items-center bg-white shadow-sm" id="reader-toolbar">
+    <div class="py-3 px-6 border-b border-ink/10 flex justify-between items-center bg-white shadow-sm">
       <div class="truncate max-w-sm sm:max-w-md">
-        <h3 id="reader-modal-title" class="font-serif font-bold text-base truncate text-ink">Чтение</h3>
+        <h3 id="reader-modal-title" class="font-serif font-bold text-base truncate text-ink">Чтение книги</h3>
         <p class="text-xs text-ink/50">Полный текст на русском языке</p>
       </div>
 
-      <!-- Управление: размер шрифта, темы и закрытие -->
-      <div class="flex items-center gap-2 sm:gap-3">
-        <div class="flex items-center border border-ink/20 rounded text-xs overflow-hidden">
-          <button id="font-dec" class="px-2.5 py-1 hover:bg-ink/10 active:scale-95">A−</button>
-          <button id="font-inc" class="px-2.5 py-1 border-l border-ink/20 hover:bg-ink/10 active:scale-95">A+</button>
-        </div>
-
-        <div class="flex gap-1">
-          <button data-theme="light" class="theme-btn w-6 h-6 rounded-full bg-[#FAF8F5] border border-ink/30" title="Светлая"></button>
-          <button data-theme="sepia" class="theme-btn w-6 h-6 rounded-full bg-[#F4ECD8] border border-amber-900/30" title="Сепия"></button>
-          <button data-theme="dark"  class="theme-btn w-6 h-6 rounded-full bg-[#1A1A18] border border-white/20" title="Тёмная"></button>
-        </div>
-
-        <button id="close-reader-btn" class="ml-1 sm:ml-2 px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-terracotta text-white rounded hover:bg-terracotta/90 transition-all active:scale-95">
+      <div class="flex items-center gap-2">
+        <a id="external-reader-link" href="#" target="_blank" rel="noopener" class="hidden sm:inline-block text-xs text-moss hover:underline mr-2">
+          В новой вкладке ↗
+        </a>
+        <button id="close-reader-btn" class="px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider bg-terracotta text-white rounded hover:bg-terracotta/90 transition-all active:scale-95">
           Закрыть ✕
         </button>
       </div>
     </div>
     
-    <!-- Область текста книги -->
-    <div id="reader-viewport" class="flex-1 w-full h-full overflow-y-auto theme-sepia px-6 py-10 transition-colors">
-      <div id="reader-body" class="max-w-2xl mx-auto font-body text-base leading-relaxed selection:bg-terracotta selection:text-white">
-        Загрузка текста книги...
-      </div>
+    <!-- Мобильная версия Викитеки без боковых колонок -->
+    <div class="flex-1 w-full h-full bg-parchment relative">
+      <iframe id="reader-frame" class="w-full h-full border-0" src="" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
     </div>
   </div>
 
   <!-- Подвал -->
   <footer class="border-t border-ink/10 py-6 px-6 text-center text-xs text-ink/50 bg-linen/50 mt-auto">
-    <p>The Open Folio • Библиотека произведений на русском языке (Public Domain)</p>
-    <p class="mt-1">Полные выверенные издания без иностранных вставок и сокращений.</p>
+    <p>The Open Folio • Открытая библиотека на русском языке (Public Domain)</p>
+    <p class="mt-1">Все тексты и PDF-файлы доступны полностью и бесплатно.</p>
   </footer>
 
   <script>
     // -------------------------------------------------------------
-    // ЗОЛОТОЙ ФОНД МИРОВОЙ И РУССКОЙ ЛИТЕРАТУРЫ НА РУССКОМ ЯЗЫКЕ
+    // ПРОВЕРЕННАЯ БАЗА ШЕДЕВРОВ (ТОЧНЫЕ КАНОНИЧЕСКИЕ ССЫЛКИ)
     // -------------------------------------------------------------
-    const CURATED_RUSSIAN_BOOKS = [
+    const VERIFIED_MASTER_COLLECTION = [
+      // ГЁТЕ
       {
-        title: "Анна Каренина",
-        author: "Лев Толстой",
-        year: "1877",
-        pages: "864 стр.",
-        genre: "Роман",
-        wikiTitle: "Анна_Каренина_(Толстой)"
+        title: "Фауст",
+        author: "Иоганн Вольфганг фон Гёте",
+        year: "1808",
+        pages: "Трагедия",
+        readUrl: "https://ru.m.wikisource.org/wiki/Фауст_(Гёте/Холодковский)",
+        pdfTitle: "Фауст_(Гёте/Холодковский)"
       },
       {
-        title: "Война и мир",
-        author: "Лев Толстой",
-        year: "1869",
-        pages: "1225 стр.",
-        genre: "Роман-эпопея",
-        wikiTitle: "Война_и_мир_(Толстой)"
+        title: "Страдания юного Вертера",
+        author: "Иоганн Вольфганг фон Гёте",
+        year: "1774",
+        pages: "Роман",
+        readUrl: "https://ru.m.wikisource.org/wiki/Страдания_юного_Вертера_(Гёте)",
+        pdfTitle: "Страдания_юного_Вертера_(Гёте)"
+      },
+
+      // ШЕРЛОК ХОЛМС (ТОЧНЫЕ ССЫЛКИ ВИКИТЕКИ С ОКОНЧАНИЕМ "ДОЙЛЬ")
+      {
+        title: "Собака Баскервилей",
+        author: "Артур Конан Дойль",
+        year: "1902",
+        pages: "Повесть",
+        readUrl: "https://ru.m.wikisource.org/wiki/Собака_Баскервилей_(Дойль)",
+        pdfTitle: "Собака_Баскервилей_(Дойль)"
       },
       {
-        title: "Преступление и наказание",
-        author: "Фёдор Достоевский",
-        year: "1866",
-        pages: "672 стр.",
-        genre: "Роман",
-        wikiTitle: "Преступление_и_наказание_(Достоевский)"
+        title: "Этюд в багровых тонах",
+        author: "Артур Конан Дойль",
+        year: "1887",
+        pages: "Повесть",
+        readUrl: "https://ru.m.wikisource.org/wiki/Этюд_в_багровых_тонах_(Дойль)",
+        pdfTitle: "Этюд_в_багровых_тонах_(Дойль)"
       },
       {
-        title: "Братья Карамазовы",
-        author: "Фёдор Достоевский",
-        year: "1880",
-        pages: "992 стр.",
-        genre: "Роман",
-        wikiTitle: "Братья_Карамазовы_(Достоевский)"
+        title: "Знак четырёх",
+        author: "Артур Конан Дойль",
+        year: "1890",
+        pages: "Повесть",
+        readUrl: "https://ru.m.wikisource.org/wiki/Знак_четырёх_(Дойль)",
+        pdfTitle: "Знак_четырёх_(Дойль)"
       },
-      {
-        title: "Идиот",
-        author: "Фёдор Достоевский",
-        year: "1869",
-        pages: "640 стр.",
-        genre: "Роман",
-        wikiTitle: "Идиот_(Достоевский)"
-      },
+
+      // ДЮМА
       {
         title: "Граф Монте-Кристо",
         author: "Александр Дюма",
         year: "1846",
         pages: "1150 стр.",
-        genre: "Приключения",
-        wikiTitle: "Граф_Монте-Кристо_(Дюма)"
+        readUrl: "https://ru.m.wikisource.org/wiki/Граф_Монте-Кристо_(Дюма)",
+        pdfTitle: "Граф_Монте-Кристо_(Дюма)"
       },
       {
         title: "Три мушкетёра",
         author: "Александр Дюма",
         year: "1844",
         pages: "720 стр.",
-        genre: "Исторический роман",
-        wikiTitle: "Три_мушкетёра_(Дюма)"
+        readUrl: "https://ru.m.wikisource.org/wiki/Три_мушкетёра_(Дюма)",
+        pdfTitle: "Три_мушкетёра_(Дюма)"
       },
-      {
-        title: "Приключения Шерлока Холмса",
-        author: "Артур Конан Дойл",
-        year: "1892",
-        pages: "380 стр.",
-        genre: "Детектив",
-        wikiTitle: "Приключения_Шерлока_Холмса_(Дойл)"
-      },
-      {
-        title: "Собака Баскервилей",
-        author: "Артур Конан Дойл",
-        year: "1902",
-        pages: "220 стр.",
-        genre: "Детектив",
-        wikiTitle: "Собака_Баскервилей_(Дойл)"
-      },
+
+      // ЖЮЛЬ ВЕРН
       {
         title: "Таинственный остров",
         author: "Жюль Верн",
         year: "1874",
         pages: "620 стр.",
-        genre: "Фантастика и приключения",
-        wikiTitle: "Таинственный_остров_(Верн)"
+        readUrl: "https://ru.m.wikisource.org/wiki/Таинственный_остров_(Верн)",
+        pdfTitle: "Таинственный_остров_(Верн)"
       },
       {
-        title: "Двадцать тысяч льё под водой",
+        title: "Вокруг света в 80 дней",
         author: "Жюль Верн",
-        year: "1870",
-        pages: "480 стр.",
-        genre: "Научная фантастика",
-        wikiTitle: "Двадцать_тысяч_льё_под_водой_(Верн)"
+        year: "1872",
+        pages: "Приключения",
+        readUrl: "https://ru.m.wikisource.org/wiki/Вокруг_света_в_восемьдесят_дней_(Верн)",
+        pdfTitle: "Вокруг_света_в_восемьдесят_дней_(Верн)"
+      },
+
+      // ТОЛСТОЙ
+      {
+        title: "Анна Каренина",
+        author: "Лев Толстой",
+        year: "1877",
+        pages: "864 стр.",
+        readUrl: "https://ru.m.wikisource.org/wiki/Анна_Каренина_(Толстой)",
+        pdfTitle: "Анна_Каренина_(Толстой)"
       },
       {
-        title: "Остров сокровищ",
-        author: "Роберт Льюис Стивенсон",
-        year: "1883",
-        pages: "240 стр.",
-        genre: "Приключения",
-        wikiTitle: "Остров_сокровищ_(Стивенсон)"
+        title: "Война и мир",
+        author: "Лев Толстой",
+        year: "1869",
+        pages: "1225 стр.",
+        readUrl: "https://ru.m.wikisource.org/wiki/Война_и_мир_(Толстой)",
+        pdfTitle: "Война_и_мир_(Толстой)"
       },
       {
-        title: "Белый Клык",
-        author: "Джек Лондон",
-        year: "1906",
-        pages: "280 стр.",
-        genre: "Приключения",
-        wikiTitle: "Белый_Клык_(Лондон)"
+        title: "Смерть Ивана Ильича",
+        author: "Лев Толстой",
+        year: "1886",
+        pages: "Повесть",
+        readUrl: "https://ru.m.wikisource.org/wiki/Смерть_Ивана_Ильича_(Толстой)",
+        pdfTitle: "Смерть_Ивана_Ильича_(Толстой)"
       },
+
+      // ДОСТОЕВСКИЙ
+      {
+        title: "Преступление и наказание",
+        author: "Фёдор Достоевский",
+        year: "1866",
+        pages: "672 стр.",
+        readUrl: "https://ru.m.wikisource.org/wiki/Преступление_и_наказание_(Достоевский)",
+        pdfTitle: "Преступление_и_наказание_(Достоевский)"
+      },
+      {
+        title: "Братья Карамазовы",
+        author: "Фёдор Достоевский",
+        year: "1880",
+        pages: "992 стр.",
+        readUrl: "https://ru.m.wikisource.org/wiki/Братья_Карамазовы_(Достоевский)",
+        pdfTitle: "Братья_Карамазовы_(Достоевский)"
+      },
+      {
+        title: "Белые ночи",
+        author: "Фёдор Достоевский",
+        year: "1848",
+        pages: "Повесть",
+        readUrl: "https://ru.m.wikisource.org/wiki/Белые_ночи_(Достоевский)",
+        pdfTitle: "Белые_ночи_(Достоевский)"
+      },
+
+      // БУЛГАКОВ
       {
         title: "Мастер и Маргарита",
         author: "Михаил Булгаков",
         year: "1940",
         pages: "480 стр.",
-        genre: "Роман",
-        wikiTitle: "Мастер_и_Маргарита_(Булгаков)"
+        readUrl: "https://ru.m.wikisource.org/wiki/Мастер_и_Маргарита_(Булгаков)",
+        pdfTitle: "Мастер_и_Маргарита_(Булгаков)"
       },
       {
         title: "Собачье сердце",
         author: "Михаил Булгаков",
         year: "1925",
-        pages: "144 стр.",
-        genre: "Повесть",
-        wikiTitle: "Собачье_сердце_(Булгаков)"
+        pages: "Повесть",
+        readUrl: "https://ru.m.wikisource.org/wiki/Собачье_сердце_(Булгаков)",
+        pdfTitle: "Собачье_сердце_(Булгаков)"
       },
-      {
-        title: "Мёртвые души",
-        author: "Николай Гоголь",
-        year: "1842",
-        pages: "352 стр.",
-        genre: "Поэма в прозе",
-        wikiTitle: "Мёртвые_души_(Гоголь)"
-      },
-      {
-        title: "Ревизор",
-        author: "Николай Гоголь",
-        year: "1836",
-        pages: "128 стр.",
-        genre: "Комедия",
-        wikiTitle: "Ревизор_(Гоголь)"
-      },
-      {
-        title: "Евгений Онегин",
-        author: "Александр Пушкин",
-        year: "1833",
-        pages: "224 стр.",
-        genre: "Роман в стихах",
-        wikiTitle: "Евгений_Онегин_(Пушкин)"
-      },
-      {
-        title: "Капитанская дочка",
-        author: "Александр Пушкин",
-        year: "1836",
-        pages: "176 стр.",
-        genre: "Исторический роман",
-        wikiTitle: "Капитанская_дочка_(Пушкин)"
-      },
+
+      // ЧЕХОВ
       {
         title: "Палата № 6",
         author: "Антон Чехов",
         year: "1892",
-        pages: "92 стр.",
-        genre: "Повесть",
-        wikiTitle: "Палата_№_6_(Чехов)"
+        pages: "Повесть",
+        readUrl: "https://ru.m.wikisource.org/wiki/Палата_№_6_(Чехов)",
+        pdfTitle: "Палата_№_6_(Чехов)"
       },
       {
         title: "Вишнёвый сад",
         author: "Антон Чехов",
         year: "1904",
-        pages: "112 стр.",
-        genre: "Пьеса",
-        wikiTitle: "Вишнёвый_сад_(Чехов)"
+        pages: "Пьеса",
+        readUrl: "https://ru.m.wikisource.org/wiki/Вишнёвый_сад_(Чехов)",
+        pdfTitle: "Вишнёвый_сад_(Чехов)"
+      },
+
+      // ДРУГИЕ КЛАССИКИ
+      {
+        title: "Остров сокровищ",
+        author: "Роберт Льюис Стивенсон",
+        year: "1883",
+        pages: "Роман",
+        readUrl: "https://ru.m.wikisource.org/wiki/Остров_сокровищ_(Стивенсон)",
+        pdfTitle: "Остров_сокровищ_(Стивенсон)"
+      },
+      {
+        title: "Белый Клык",
+        author: "Джек Лондон",
+        year: "1906",
+        pages: "Повесть",
+        readUrl: "https://ru.m.wikisource.org/wiki/Белый_Клык_(Лондон)",
+        pdfTitle: "Белый_Клык_(Лондон)"
       },
       {
         title: "Портрет Дориана Грея",
         author: "Оскар Уайльд",
         year: "1890",
-        pages: "310 стр.",
-        genre: "Роман",
-        wikiTitle: "Портрет_Дориана_Грея_(Уайльд)"
+        pages: "Роман",
+        readUrl: "https://ru.m.wikisource.org/wiki/Портрет_Дориана_Грея_(Уайльд)",
+        pdfTitle: "Портрет_Дориана_Грея_(Уайльд)"
       },
       {
-        title: "Герой нашего времени",
-        author: "Михаил Лермонтов",
-        year: "1840",
-        pages: "224 стр.",
-        genre: "Роман",
-        wikiTitle: "Герой_нашего_времени_(Лермонтов)"
-      },
-      {
-        title: "Отцы и дети",
-        author: "Иван Тургенев",
-        year: "1862",
-        pages: "288 стр.",
-        genre: "Роман",
-        wikiTitle: "Отцы_и_дети_(Тургенев)"
+        title: "Превращение",
+        author: "Франц Кафка",
+        year: "1915",
+        pages: "Новелла",
+        readUrl: "https://ru.m.wikisource.org/wiki/Превращение_(Кафка)",
+        pdfTitle: "Превращение_(Кафка)"
       }
     ];
 
@@ -360,97 +355,38 @@
 
     const readerModal = document.getElementById('reader-modal');
     const readerTitle = document.getElementById('reader-modal-title');
-    const readerBody = document.getElementById('reader-body');
-    const readerViewport = document.getElementById('reader-viewport');
+    const readerFrame = document.getElementById('reader-frame');
+    const externalReaderLink = document.getElementById('external-reader-link');
     const closeReaderBtn = document.getElementById('close-reader-btn');
-    const fontInc = document.getElementById('font-inc');
-    const fontDec = document.getElementById('font-dec');
-    const themeButtons = document.querySelectorAll('.theme-btn');
 
-    let currentFontSize = 18;
-
-    // -------------------------------------------------------------
-    // ВСТРОЕННОЕ ЧТЕНИЕ: ЗАГРУЗКА ЧИСТОГО РУССКОГО ТЕКСТА
-    // -------------------------------------------------------------
-    window.openBookReader = async function(wikiTitle, displayTitle) {
+    // Открытие окна чтения
+    window.openBookReader = function(readUrl, displayTitle) {
       readerModal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
       readerTitle.textContent = displayTitle;
-      readerViewport.scrollTop = 0;
-      readerBody.style.fontSize = `${currentFontSize}px`;
-      readerBody.innerHTML = `
-        <div class="text-center py-20 text-ink/60">
-          <div class="animate-spin inline-block w-8 h-8 border-2 border-moss border-t-transparent rounded-full mb-4"></div>
-          <p class="font-serif text-lg">Загружаем полный русский текст произведения...</p>
-        </div>
-      `;
-
-      try {
-        const res = await fetch(`https://ru.wikisource.org/api/rest_v1/page/html/${encodeURIComponent(wikiTitle)}`);
-        if (!res.ok) throw new Error('Не удалось загрузить через API');
-        const html = await res.text();
-
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-
-        doc.querySelectorAll('.headerContainer, .navigation-box, .metadata, table.infobox, .printfooter, .mw-empty-elt').forEach(el => el.remove());
-
-        readerBody.innerHTML = doc.body.innerHTML;
-
-      } catch (err) {
-        readerBody.innerHTML = `
-          <div class="text-center py-12">
-            <p class="mb-4">Не удалось загрузить текст напрямую в окно.</p>
-            <a href="https://ru.m.wikisource.org/wiki/${encodeURIComponent(wikiTitle)}" target="_blank" class="px-5 py-2.5 bg-moss text-parchment rounded font-medium inline-block">
-              Открыть полный русский текст в мобильной версии ↗
-            </a>
-          </div>
-        `;
-      }
+      externalReaderLink.href = readUrl;
+      readerFrame.src = readUrl;
     };
 
     closeReaderBtn.addEventListener('click', () => {
       readerModal.classList.add('hidden');
       document.body.style.overflow = '';
-      readerBody.innerHTML = '';
-    });
-
-    fontInc.addEventListener('click', () => {
-      if (currentFontSize < 32) {
-        currentFontSize += 2;
-        readerBody.style.fontSize = `${currentFontSize}px`;
-      }
-    });
-
-    fontDec.addEventListener('click', () => {
-      if (currentFontSize > 14) {
-        currentFontSize -= 2;
-        readerBody.style.fontSize = `${currentFontSize}px`;
-      }
-    });
-
-    themeButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        readerViewport.classList.remove('theme-light', 'theme-sepia', 'theme-dark');
-        readerViewport.classList.add(`theme-${btn.dataset.theme}`);
-      });
+      readerFrame.src = '';
     });
 
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !readerModal.classList.contains('hidden')) {
         readerModal.classList.add('hidden');
         document.body.style.overflow = '';
+        readerFrame.src = '';
       }
     });
 
-    // -------------------------------------------------------------
-    // ОТРИСОВКА КАРТОЧКИ КНИГИ
-    // -------------------------------------------------------------
+    // Отрисовка карточки книги
     function renderCard(book, idx) {
       const safeTitle = book.title.replace(/"/g, '&quot;');
-      const wiki = book.wikiTitle || book.title;
-
-      const pdfUrl = `https://ru.wikisource.org/api/rest_v1/page/pdf/${encodeURIComponent(wiki)}`;
+      const pdfTitle = book.pdfTitle || book.title;
+      const pdfUrl = `https://ru.wikisource.org/api/rest_v1/page/pdf/${encodeURIComponent(pdfTitle)}`;
 
       const colors = ['bg-[#222a22]', 'bg-[#2b221f]', 'bg-[#1f262b]', 'bg-[#29222c]'];
       const coverBg = colors[idx % colors.length];
@@ -459,20 +395,20 @@
         <article class="book-card bg-white border border-ink/15 rounded-sm p-4 flex flex-col justify-between shadow-sm">
           <div>
             <div class="aspect-[2/3] w-full ${coverBg} rounded-sm mb-3 p-4 flex flex-col justify-between text-parchment relative overflow-hidden select-none border border-ink/10 shadow-inner">
-              <span class="text-[10px] uppercase tracking-widest text-ochre font-semibold">${book.year || 'Классика'}</span>
+              <span class="text-[10px] uppercase tracking-widest text-ochre font-semibold">${book.year || 'Издание'}</span>
               <div class="my-auto text-center">
                 <p class="font-serif text-base font-semibold leading-snug">${book.title}</p>
                 <p class="text-xs text-parchment/70 mt-1">${book.author}</p>
               </div>
               <div class="flex justify-between items-center text-[9px] uppercase tracking-wider opacity-50 border-t border-parchment/10 pt-2">
-                <span>${book.genre || 'Полный том'}</span>
-                <span>${book.pages || 'Текст'}</span>
+                <span>The Open Folio</span>
+                <span>${book.pages || 'Полный текст'}</span>
               </div>
             </div>
 
             <div class="flex items-center justify-between mb-1">
               <p class="text-xs text-terracotta font-medium tracking-wide truncate">${book.author}</p>
-              <span class="text-[10px] text-ink/40">${book.pages || ''}</span>
+              <span class="text-[10px] text-ink/40">${book.year || ''}</span>
             </div>
             <h3 class="font-serif text-base font-semibold leading-snug line-clamp-2 mb-2 text-ink" title="${safeTitle}">
               ${book.title}
@@ -481,14 +417,14 @@
 
           <div class="pt-3 border-t border-ink/10 mt-3 flex items-center justify-between">
             <div class="flex gap-2">
-              <button onclick="openBookReader('${wiki}', '${safeTitle}')" class="px-3 py-1.5 bg-moss text-parchment hover:bg-moss/90 rounded text-xs font-medium transition-all active:scale-95 shadow-sm">
+              <button onclick="openBookReader('${book.readUrl}', '${safeTitle}')" class="px-3 py-1.5 bg-moss text-parchment hover:bg-moss/90 rounded text-xs font-medium transition-all active:scale-95 shadow-sm">
                 Читать
               </button>
-              <a href="${pdfUrl}" target="_blank" rel="noopener" class="px-3 py-1.5 bg-terracotta text-white hover:bg-terracotta/90 rounded text-xs font-medium transition-all active:scale-95 shadow-sm" title="Скачать оригинальный PDF на русском">
+              <a href="${pdfUrl}" target="_blank" rel="noopener" class="px-3 py-1.5 bg-terracotta text-white hover:bg-terracotta/90 rounded text-xs font-medium transition-all active:scale-95 shadow-sm" title="Скачать PDF на русском">
                 PDF
               </a>
             </div>
-            <span class="text-[10px] text-ink/40 font-mono">${book.year || ''}</span>
+            <span class="text-[10px] text-ink/40 font-mono">RU</span>
           </div>
         </article>
       `;
@@ -496,7 +432,95 @@
 
     function showCurated(filter = '') {
       const q = filter.toLowerCase().trim();
-      const filtered = CURATED_RUSSIAN_BOOKS.filter(b => 
+      const filtered = VERIFIED_MASTER_COLLECTION.filter(b => 
         !q || b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q)
       );
-      grid.innerHTML = f
+      grid.innerHTML = filtered.map(renderCard).join('');
+      statusText.textContent = `Показано изданий: ${filtered.length} (Русские издания и переводы)`;
+    }
+
+    // Живой поиск по открытому каталогу
+    async function searchGlobalRussian(query) {
+      statusText.textContent = `Ищем книги по запросу «${query}»...`;
+      grid.innerHTML = '';
+
+      const localMatches = VERIFIED_MASTER_COLLECTION.filter(b =>
+        b.title.toLowerCase().includes(query.toLowerCase()) || b.author.toLowerCase().includes(query.toLowerCase())
+      );
+
+      try {
+        const url = `https://ru.wikisource.org/w/api.php?action=opensearch&search=${encodeURIComponent(query)}&limit=30&namespace=0&format=json&origin=*`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Сбой сети');
+        
+        const data = await res.json();
+        const titles = data || [];
+        const urls = data || [];
+
+        if (titles.length === 0 && localMatches.length === 0) {
+          statusText.textContent = `По запросу «${query}» ничего не найдено. Показана подборка.`;
+          showCurated();
+          return;
+        }
+
+        const apiBooks = titles.map((rawTitle, i) => {
+          let author = query;
+          let title = rawTitle;
+
+          const match = rawTitle.match(/^(.*?)\s*\((.*?)\)$/);
+          if (match) {
+            title = match;
+            author = match;
+          }
+
+          // Преобразуем URL в мобильную версию Викитеки без лишних меню
+          const mobileUrl = urls[i] ? urls[i].replace('https://ru.wikisource.org/', 'https://ru.m.wikisource.org/') : `https://ru.m.wikisource.org/wiki/${encodeURIComponent(rawTitle)}`;
+
+          return {
+            title,
+            author,
+            year: 'Издание РФ',
+            pages: 'Полный текст',
+            readUrl: mobileUrl,
+            pdfTitle: rawTitle
+          };
+        });
+
+              const allBooks = [...localMatches, ...apiBooks.filter(ab => !localMatches.some(lm => lm.title.toLowerCase() === ab.title.toLowerCase()))];
+
+        grid.innerHTML = allBooks.map(renderCard).join('');
+        statusText.textContent = `Найдено изданий на русском языке: ${allBooks.length}`;
+
+      } catch (err) {
+        if (localMatches.length > 0) {
+          grid.innerHTML = localMatches.map(renderCard).join('');
+          statusText.textContent = `Показано изданий: ${localMatches.length}`;
+        } else {
+          showCurated(query);
+        }
+      }
+    }
+
+    searchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = searchInput.value.trim();
+      if (!q) showCurated();
+      else searchGlobalRussian(q);
+    });
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('border-moss', 'text-moss', 'font-bold', 'bg-white'));
+        btn.classList.add('border-moss', 'text-moss', 'font-bold', 'bg-white');
+        const q = btn.dataset.query;
+        searchInput.value = q;
+        if (!q) showCurated();
+        else searchGlobalRussian(q);
+      });
+    });
+
+    // Старт
+    showCurated();
+  </script>
+</body>
+</html>
