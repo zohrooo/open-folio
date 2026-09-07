@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Open Folio — Мировая библиотека русской классики</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            parchment: '#F7F4EC',
+            ink: '#1C1B18',
+            moss: '#2E382E',
+            terracotta: '#A34832',
+            ochre: '#C29B38',
+            linen: '#ECE6D9'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            body: ['"Literata"', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #F7F4EC;
+      background-image: radial-gradient(#1c1b18 0.5px, transparent 0.5px);
+      background-size: 24px 24px;
+      color: #1C1B18;
+    }
+    .book-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .book-card:hover {
+      transform: translateY(-4px);
+    }
+  </style>
+</head>
+<body class="font-body antialiased min-h-screen flex flex-col selection:bg-terracotta selection:text-parchment">
+
+  <!-- Шапка -->
+  <header class="border-b border-ink/10 py-5 px-6 sm:px-12 flex justify-between items-center bg-parchment/80 backdrop-blur-sm sticky top-0 z-40">
+    <div class="flex items-center space-x-3">
+      <span class="font-serif text-2xl sm:text-3xl font-semibold tracking-wide text-moss">The Open Folio</span>
+      <span class="text-xs uppercase tracking-widest text-ink/40 border-l border-ink/20 pl-3">Полные издания • PDF & Ридер</span>
+    </div>
+    <div class="text-xs text-ink/60 hidden sm:block">
+      Тысячи бесплатных книг в открытом доступе
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="max-w-4xl mx-auto px-6 pt-12 pb-6 text-center">
+    <p class="text-xs uppercase tracking-[0.25em] text-terracotta font-semibold mb-3">Оцифрованные архивы мировой классики</p>
+    <h1 class="font-serif text-4xl sm:text-6xl font-normal leading-tight text-ink mb-4">
+      Читайте книги без купюр и сокращений.
+    </h1>
+    <p class="text-base sm:text-lg text-ink/70 leading-relaxed max-w-2xl mx-auto mb-8">
+      Полнотекстовые романы, повести и сборники с возможностью чтения прямо в браузере или загрузки в оригинальном PDF.
+    </p>
+
+    <!-- Поисковая панель -->
+    <form id="search-form" class="max-w-xl mx-auto flex flex-col sm:flex-row gap-2">
+      <input 
+        id="search-input"
+        type="text" 
+        placeholder="Поиск любой книги (Толстой, Война и мир, Достоевский, Булгаков)..." 
+        class="flex-1 px-5 py-3.5 rounded-sm bg-white border border-ink/20 focus:border-moss focus:outline-none text-sm placeholder:text-ink/40 shadow-sm"
+      />
+      <button 
+        type="submit" 
+        class="px-7 py-3.5 bg-moss text-parchment font-serif text-sm tracking-wider uppercase hover:bg-moss/90 active:scale-95 transition-all rounded-sm"
+      >
+        Найти
+      </button>
+    </form>
+
+    <!-- Быстрые фильтры авторов -->
+    <div class="flex flex-wrap justify-center gap-2 mt-6 text-xs" id="quick-filters">
+      <button data-query="Лев Толстой" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-transform">Лев Толстой</button>
+      <button data-query="Фёдор Достоевский" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-transform">Фёдор Достоевский</button>
+      <button data-query="Антон Чехов" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-transform">Антон Чехов</button>
+      <button data-query="Николай Гоголь" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-transform">Николай Гоголь</button>
+      <button data-query="Александр Пушкин" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-transform">Александр Пушкин</button>
+      <button data-query="Михаил Булгаков" class="filter-btn px-3 py-1.5 rounded-full border border-ink/20 bg-white font-medium active:scale-95 transition-transform">Михаил Булгаков</button>
+    </div>
+  </section>
+
+  <!-- Каталог книг -->
+  <main class="max-w-6xl mx-auto px-6 pb-24 flex-1 w-full">
+    <div id="status-bar" class="text-center py-6 text-sm text-ink/60">Загрузка библиотеки...</div>
+    <div id="books-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+  </main>
+
+  <!-- ВСТРОЕННЫЙ ПОЛНОЭКРАННЫЙ РИДЕР КНИГИ (MODAL) -->
+  <div id="reader-modal" class="fixed inset-0 z-50 hidden flex flex-col backdrop-blur-md bg-ink/70">
+    <div class="py-3 px-6 border-b border-ink/10 flex justify-between items-center bg-white shadow-sm">
+      <div class="truncate max-w-lg">
+        <h3 id="reader-modal-title" class="font-serif font-bold text-base truncate text-ink">Чтение книги</h3>
+        <p class="text-xs text-ink/50">Полный оцифрованный текст</p>
+      </div>
+      <button id="close-reader-btn" class="px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider bg-terracotta text-white rounded hover:bg-terracotta/90 transition-all active:scale-95">
+        Закрыть ✕
+      </button>
+    </div>
+    
+    <!-- Фрейм с книгой от корки до корки -->
+    <div class="flex-1 w-full h-full bg-parchment relative">
+      <iframe id="reader-frame" class="w-full h-full border-0" src="" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- Подвал -->
+  <footer class="border-t border-ink/10 py-8 px-6 text-center text-xs text-ink/50 bg-linen/50 mt-auto">
+    <p>The Open Folio • Открытые цифровые архивы (Google Books & Internet Archive)</p>
+    <p class="mt-1">Все произведения доступны полностью и бесплатно в соответствии с Общественным Достоянием (Public Domain).</p>
+  </footer>
+
+  <script>
+    const grid = document.getElementById('books-grid');
+    const status = document.getElementById('status-bar');
+    const searchForm = document.getElementById('search-form');
+    const searchInput = document.getElementById('search-input');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    const readerModal = document.getElementById('reader-modal');
+    const readerFrame = document.getElementById('reader-frame');
+    const readerTitle = document.getElementById('reader-modal-title');
+    const closeReaderBtn = document.getElementById('close-reader-btn');
+
+    let debounceTimer = null;
+
+    // Открытие встроенной читалки
+    window.openBookReader = function(url, title) {
+      readerTitle.textContent = title;
+      readerFrame.src = url;
+      readerModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    };
+
+    closeReaderBtn.addEventListener('click', () => {
+      readerFrame.src = '';
+      readerModal.classList.add('hidden');
+      document.body.style.overflow = '';
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !readerModal.classList.contains('hidden')) {
+        readerFrame.src = '';
+        readerModal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Поиск книг через открытый Google Books API (с фильтром только полных бесплатных книг)
+    async function searchBooks(query = 'Лев Толстой') {
+      status.classList.remove('hidden');
+      status.textContent = `Ищем полные издания по запросу «${query}»...`;
+      grid.innerHTML = '';
+
+      // API запрос на бесплатные книги на русском языке
+      const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&filter=free-ebooks&langRestrict=ru&maxResults=28`;
+
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error('Ошибка связи с библиотечным сервером');
+        const data = await response.json();
+        const items = data.items || [];
+
+        status.classList.add('hidden');
+
+        if (items.length === 0) {
+          status.textContent = 'По данному запросу полных изданий не найдено. Попробуйте другого автора.';
+          status.classList.remove('hidden');
+          return;
+        }
+
+        grid.innerHTML = items.map(item => {
+          const info = item.volumeInfo || {};
+          const access = item.accessInfo || {};
+
+          const title = info.title || 'Без названия';
+          const authors = info.authors ? info.authors.join(', ') : 'Автор не указан';
+          const pages = info.pageCount ? `${info.pageCount} стр.` : 'Полный том';
+          const year = info.publishedDate ? info.publishedDate.substring(0, 4) : '';
+          
+          // Обложка из архива (с заменой http на https)
+          let cover = info.imageLinks ? (info.imageLinks.thumbnail || info.imageLinks.smallThumbnail) : null;
+          if (cover && cover.startsWith('http://')) {
+            cover = cover.replace('http://', 'https://');
+          }
+
+          // Ссылка на полный ридер
+          const readerUrl = access.webReaderLink ? access.webReaderLink.replace('http://', 'https://') : null;
+
+          // Ссылка на скачивание полного PDF
+          let pdfUrl = null;
+          if (access.pdf && access.pdf.isAvailable && access.pdf.downloadLink) {
+            pdfUrl = access.pdf.downloadLink;
+          } else if (access.pdf && access.pdf.acsTokenLink) {
+            pdfUrl = access.pdf.acsTokenLink;
+          }
+
+          const safeTitle = title.replace(/"/g, '&quot;');
+
+          const coverHtml = cover
+            ? `<img src="${cover}" alt="${safeTitle}" class="w-full h-full object-cover" loading="lazy" />`
+            : `<div class="w-full h-full p-4 flex flex-col justify-between bg-moss text-parchment text-center">
+                 <span class="text-[10px] uppercase tracking-widest text-ochre font-semibold">${year}</span>
+                 <p class="font-serif text-sm font-semibold line-clamp-3">${safeTitle}</p>
+                 <span class="text-[9px] uppercase tracking-wider opacity-40">${authors}</span>
+               </div>`;
+
+          // Кнопка чтения: открывает полноэкранный ридер книги
+          const readBtn = readerUrl 
+            ? `<button onclick="openBookReader('${readerUrl}', '${safeTitle}')" class="px-2.5 py-1 bg-moss text-parchment hover:bg-moss/90 rounded text-xs font-medium transition-colors active:scale-95 shadow-sm flex items-center gap-1">
+                 <span>Читать</span>
+               </button>`
+            : '';
+
+          // Кнопка PDF: скачивание или открытие полноценного PDF-файла
+          const pdfBtn = pdfUrl
+            ? `<a href="${pdfUrl}" target="_blank" rel="noopener" class="px-2.5 py-1 bg-terracotta text-white hover:bg-terracotta/90 rounded text-xs font-medium transition-colors active:scale-95 shadow-sm flex items-center gap-1" title="Открыть или скачать полный PDF">
+                 <span>PDF</span>
+               </a>`
+            : (readerUrl ? `<a href="${readerUrl}" target="_blank" class="px-2 py-1 bg-linen hover:bg-ink/10 text-ink rounded text-xs transition-colors">Веб-том</a>` : '');
+
+          return `
+            <article class="book-card bg-white border border-ink/15 rounded-sm p-4 flex flex-col justify-between shadow-sm">
+              <div>
+                <div class="aspect-[2/3] w-full bg-linen/70 rounded-sm mb-3 overflow-hidden flex items-center justify-center border border-ink/5 relative shadow-inner">
+                  ${coverHtml}
+                </div>
+                <div class="flex justify-between items-center text-[10px] text-terracotta font-semibold mb-1">
+                  <span class="truncate max-w-[140px]">${authors}</span>
+                  <span class="text-ink/40 font-normal">${pages}</span>
+                </div>
+                <h3 class="font-serif text-base font-semibold leading-snug line-clamp-2 mb-2 text-ink" title="${safeTitle}">
+                  ${title}
+                </h3>
+              </div>
+              <div class="pt-3 border-t border-ink/10 mt-3 flex items-center justify-between">
+                <div class="flex gap-2">
+                  ${readBtn}
+                  ${pdfBtn}
+                </div>
+                <span class="text-[10px] text-ink/40">${year}</span>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+      } catch (err) {
+        status.textContent = 'Ошибка загрузки каталога. Проверьте соединение с интернетом.';
+        status.classList.remove('hidden');
+      }
+    }
+
+    // Поиск через форму
+    searchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = searchInput.value.trim();
+      if (val) searchBooks(val);
+    });
+
+    // Живой поиск с задержкой (debounce)
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(debounceTimer);
+      const val = e.target.value.trim();
+      if (val.length >= 3) {
+        debounceTimer = setTimeout(() => {
+          searchBooks(val);
+        }, 500);
+      }
+    });
+
+    // Быстрые фильтры по авторам
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('border-moss', 'text-moss', 'font-bold'));
+        btn.classList.add('border-moss', 'text-moss', 'font-bold');
+        const q = btn.dataset.query;
+        searchInput.value = q;
+        searchBooks(q);
+      });
+    });
+
+    // Начальная загрузка при открытии сайта
+    searchBooks('Лев Толстой');
+  </script>
+</body>
+</html>
